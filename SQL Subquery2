@@ -1,0 +1,28 @@
+SELECT
+d.country as country,
+COUNT(DISTINCT a.customer_id) as all_customer_count,
+COUNT(DISTINCT top_customer_count) as top_customers
+FROM customer as a
+LEFT JOIN address b ON a.address_id = b.address_id
+LEFT JOIN city as c ON b.city_id = c.city_id
+LEFT JOIN country as d ON c.country_id = d.country_id
+LEFT JOIN payment e ON a.customer_id = e.customer_id
+INNER JOIN
+(SELECT
+COUNT(DISTINCT a.customer_id) as top_customer_count,
+a.customer_id,
+sum (e.amount) as sum_spent,
+d.country as country
+FROM customer as a
+LEFT JOIN address b ON a.address_id = b.address_id
+LEFT JOIN city as c ON b.city_id = c.city_id
+LEFT JOIN country as d ON c.country_id = d.country_id
+LEFT JOIN payment e ON a.customer_id = e.customer_id
+Where c.city IN ('Aurora', 'Taguig', 'Tokat', 'Shimoga', 'Atlixco',
+'Emelshan', 'Pontianak', 'Tarsus', 'Aparecida de Goinia', 'Zalantum')
+/* Grouping by customer_id and not name/lastname to get money spent per
+unique user*/
+GROUP BY 2,4
+ORDER BY 3 DESC
+LIMIT 5) as top_5_customer ON top_5_customer.country = d.country
+GROUP BY 1
