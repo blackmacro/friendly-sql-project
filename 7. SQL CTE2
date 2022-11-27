@@ -1,0 +1,24 @@
+With top_5_customers
+(customer_id, customer_first_name, customer_last_name, country, city, total_amount_paid) AS
+(SELECT A.customer_id, B.first_name as customer_first_name, B.last_name As
+customer_last_name,E.country,D.city,SUM(A.amount) as total_amount_paid
+FROM payment A
+inner join customer B ON A.customer_id = B.customer_id
+inner join address C ON B.address_id = C.address_id
+inner join city D on C.city_id = D.city_id
+inner join country E ON D.country_id = E.country_id
+WHERE D.city In ('Aurora', 'Taguig', 'Tokat', 'Shimoga', 'Atlixco',
+'Emelshan', 'Pontianak', 'Tarsus', 'Aparecida de Goinia', 'Zalantum')
+Group BY A.customer_id, B.first_name, B.last_name, E.country, D.city
+ORDER BY total_amount_paid DESC
+LIMIT 5
+)
+select D.country, count(DISTINCT A.customer_id) as all_customer_count,
+count(distinct E.customer_id) as Top_5_customer_count
+From customer A
+inner join address B ON A.address_id = B.address_id
+inner join city C on B.city_id = C.city_id
+inner join country D ON C.country_id = D.country_id
+LEFT JOIN top_5_customers E ON E.country = D.country
+Group by (D.country)
+Order by top_5_customer_count DESC
