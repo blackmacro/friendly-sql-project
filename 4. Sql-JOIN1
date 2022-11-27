@@ -1,0 +1,15 @@
+--Finding TOP10 countries by users
+
+SELECT
+/*Selecting only count of customers from table *customer* and country from *country*/
+count (a.first_name),
+d.country
+/* Using customer as main table to make other joins*/
+FROM customer as a
+/*joining 3 other tables using a common variable in each*/
+LEFT JOIN address b ON a.address_id = b.address_id
+LEFT JOIN city as c ON b.city_id = c.city_id
+LEFT JOIN country as d ON c.country_id = d.country_id
+/* grouping by country in order to see count of customers*/
+GROUP BY 2
+ORDER BY 1 DESC
