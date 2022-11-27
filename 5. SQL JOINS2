@@ -1,0 +1,19 @@
+-- Finding TOP10 cities in TOP 10 countries by users
+-- Using previous query in task 1 and adding extra layer of city name &
+grouping & ordering
+
+
+SELECT
+count (a.first_name) as customer_number,
+/*adding c.city table as an adidtion to #customers and removed country*/
+c.city
+FROM customer as a
+LEFT JOIN address b ON a.address_id = b.address_id
+LEFT JOIN city as c ON b.city_id = c.city_id
+LEFT JOIN country as d ON c.country_id = d.country_id
+Where d.country IN ('India', 'China', 'United States', 'Japan', 'Mexico',
+'Brazil', 'Russian Federation', 'Philippines', 'Turkey', 'Indonesia')
+/* grouping by city in order to see count of customers*/
+GROUP BY 2
+/*Sorting High-to-low* by count of customers*/
+ORDER BY 1 DESC
