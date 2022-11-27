@@ -1,2 +1,2 @@
-# friendly-sql-project
+# rockbuster-sql-case
 SQL project 
