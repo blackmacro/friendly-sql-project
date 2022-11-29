@@ -6,7 +6,10 @@ SQL project:
 - Defining realtionships
 - Query examples also added in this repo
 
-<img width="1040" alt="image" src="https://user-images.githubusercontent.com/106022443/204600840-48e29820-ef89-4046-a385-42a2dd06c64c.png">
+Snippets:
+
+<img width="948" alt="image" src="https://user-images.githubusercontent.com/106022443/204601413-289b81ea-9206-4a82-8635-42f502516092.png">
+
 
 
 
